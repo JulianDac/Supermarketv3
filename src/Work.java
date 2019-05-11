@@ -167,43 +167,49 @@ public class Work {
         if (all_products.contains(queried_product)) {
             System.out.println("Product already exists.");
         } else {
-            System.out.println("Product not in database. Add now.");
-            Product product = new Product();
-            product.setProductID(entered_product_ID);
-            System.out.println("Enter the Product Name: ");
-            String entered_product_name = scanner.nextLine();
-            product.setProductName(entered_product_name);
-            System.out.println("Enter the Product Unit Price: ");
-            Double entered_price = scanner.nextDouble();
-            product.setPrice(entered_price);
-            System.out.println("Enter the Current Stock Level: ");
-            Long entered_stock_level = scanner.nextLong();
-            product.setStockLevel(entered_stock_level);
-            System.out.println("Enter the number of items to be purchased to get bulk discount: ");
-            Integer entered_min_items_discount = scanner.nextInt();
-            product.setDiscItems(entered_min_items_discount);
-            System.out.println("Enter the percentage of discount to be offered: ");
-            Double entered_percent_discount = scanner.nextDouble();
-            product.setDiscount(entered_percent_discount);
-            System.out.println("Enter the Supplier ID: ");
-            String entered_supplierID = scanner.nextLine();
-            scanner.nextLine();
-            Supplier queried_supplier = findBySupplierID(entered_supplierID);
-
-                if (all_suppliers.contains(queried_supplier)) {
-                    System.out.println("This supplier already exists. Will add this product into this supplier's offerings.");
-                    supplier = findBySupplierID(entered_supplierID);
-                    supplier.addProducts(entered_product_name);
-                } else {
-                    System.out.println("Enter the Supplier Name: ");
-                    String entered_supplierName = scanner.nextLine();
-                    Supplier supplier = new Supplier(entered_supplierID, entered_supplierName);
-                    all_suppliers.add(supplier);
-                    supplier.addProducts(entered_product_name);
-                }
-            product.setSupplierID(entered_supplierID);
-            all_products.add(product);
-            System.out.println("New product added successfully." + "\n");
+//            System.out.println("Product not in database. Add now.");
+//            Product product = new Product();
+//            product.setProductID(entered_product_ID);
+//            System.out.println("Enter the Product Name: ");
+//            String entered_product_name = scanner.nextLine();
+//            product.setProductName(entered_product_name);
+//            System.out.println("Enter the Product Unit Price: ");
+//            Double entered_price = scanner.nextDouble();
+//            product.setPrice(entered_price);
+//            System.out.println("Enter the Current Stock Level: ");
+//            Long entered_stock_level = scanner.nextLong();
+//            product.setStockLevel(entered_stock_level);
+//            System.out.println("Enter the number of items to be purchased to get bulk discount: ");
+//            Integer entered_min_items_discount = scanner.nextInt();
+//            product.setDiscItems(entered_min_items_discount);
+//            System.out.println("Enter the percentage of discount to be offered: ");
+//            Double entered_percent_discount = scanner.nextDouble();
+//            product.setDiscount(entered_percent_discount);
+//            System.out.println("Enter the Supplier ID: ");
+//            String entered_supplierID = scanner.nextLine();
+//            scanner.nextLine();
+//            Supplier queried_supplier = findBySupplierID(entered_supplierID);
+//
+//                if (all_suppliers.contains(queried_supplier)) {
+//                    System.out.println("This supplier already exists. Will add this product into this supplier's offerings.");
+//                    supplier = findBySupplierID(entered_supplierID);
+//                    supplier.addProducts(entered_product_name);
+//                } else {
+//                    System.out.println("Enter the Supplier Name: ");
+//                    String entered_supplierName = scanner.nextLine();
+//                    Supplier supplier = new Supplier(entered_supplierID, entered_supplierName);
+//                    all_suppliers.add(supplier);
+//                    supplier.addProducts(entered_product_name);
+//                }
+//            product.setSupplierID(entered_supplierID);
+//            all_products.add(product);
+            Product banana = new Product("aaa", "banana", 10);
+            Product pineapple = new Product("bbb", "pine apple", 15);
+            Product dildo = new Product("ccc", "dildo", 20);
+            all_products.add(banana);
+            all_products.add(pineapple);
+            all_products.add(dildo);
+            System.out.println("New banana, pine apple and dildo added successfully." + "\n");
         }
     }
 
@@ -292,14 +298,20 @@ public class Work {
             System.out.println("Customer already exists");
             return false;
         }
-        System.out.println("Enter your name: ");
-        CustomerName = scanner.nextLine();
-        System.out.println("Enter your Post Code: ");
-        PostCode = scanner.nextLine();
-        LoyaltyPoint = 0;
-        Customer new_customer = new Customer(CustomerID, CustomerName, PostCode, LoyaltyPoint);
-        all_customers.add(new_customer);
-        System.out.println("Thanks for joining the membership.");
+        Customer Bob = new Customer("111", "Bob", "1111", 1);
+        Customer Hussein = new Customer("222", "Hussein", "2222", 2);
+        Customer Eva = new Customer("333", "Eva", "3333", 3);
+//        System.out.println("Enter your name: ");
+//        CustomerName = scanner.nextLine();
+//        System.out.println("Enter your Post Code: ");
+//        PostCode = scanner.nextLine();
+//        LoyaltyPoint = 0;
+//        Customer new_customer = new Customer(CustomerID, CustomerName, PostCode, LoyaltyPoint);
+//        all_customers.add(new_customer);
+        all_customers.add(Bob);
+        all_customers.add(Hussein);
+        all_customers.add(Eva);
+        System.out.println("Thanks for joining the membership, Bob, Hussein and Eva.");
         purchaseAsExistingMember(CustomerID);
         return true;
     }
@@ -315,12 +327,11 @@ public class Work {
 
     public boolean purchaseAsExistingMember(String CustomerID) {
         System.out.println("Welcome to checkout!");
-            aString = CustomerID;
-            String add_item_to_receipt;
-            int quantity_of_item;
+        String customerID;
+        String add_item_to_receipt;
+        int quantity_of_item;
+        ArrayList<String> temp_array_list_items = new ArrayList<>();
 
-
-            ArrayList<String> temp_array_list_items = new ArrayList<>();
             do {
                 System.out.println("Enter the product ID you want to buy, or press Q to quit: ");
                 add_item_to_receipt = scanner.nextLine();
