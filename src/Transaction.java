@@ -1,48 +1,40 @@
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
 
 public class Transaction {
     private String transID;
-    private DateTime date_purchase;
-    private Customer customer;
-    Date date= new Date();
-    List<String> products_in_receipt = new ArrayList<>();
-    SimpleDateFormat dateformat= new SimpleDateFormat("dd/MM/yyyy_hh:mm:ss");
+    private DateTime datePurchase;
+    private String customerID;
+    DateTime date = new DateTime();
+    ArrayList<String> productsInReceipt = new ArrayList<>();
+//    SimpleDateFormat dateformat= new SimpleDateFormat("dd/MM/yyyy_hh:mm:ss");
 
 
-    public Transaction( Customer customer, ArrayList<String> products_in_receipt, Date date) {
-        this.transID = customer.getCustomerID() + "_" + dateformat.format(date);
-        this.customer = customer;
-        this.products_in_receipt = products_in_receipt;
-        this.date=date;
+    public Transaction(String customerID, ArrayList<String> productsInReceipt) {
+        this.customerID = customerID;
+        this.productsInReceipt = productsInReceipt;
     }
 
     public String getTransID() {
-        return transID;
+        return customerID + "_" + date.getFormattedDate();
     }
 
-    public String getDate_purchase() {
-
-        return dateformat.format(date);
-
+    public String getDatePurchase() {
+        return date.getFormattedDate();
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public String getCustomerID() {
+        return customerID;
     }
 
     public void setTransID(String transID) {
-        this.transID = transID;
+        this.transID = customerID + "_" + date.getFormattedDate();
     }
 
-    public void setDate_purchase(Date date_purchase) {
-
-        this.date = date_purchase;
+    public void setDatePurchase(DateTime datePurchase) {
+        this.date = datePurchase;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
     }
 }

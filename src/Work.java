@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,7 +8,7 @@ public class Work {
     List<Product> all_products = new ArrayList<>();
     List<Supplier> all_suppliers = new ArrayList<>();
     List<Customer> all_customers = new ArrayList<>();
-    List<SalesLineItem> all_saleslineitem = new ArrayList<>();
+    ArrayList<SalesLineItem> all_saleslineitem = new ArrayList<>();
 
     Scanner scanner = new Scanner(System.in);
     Product product;
@@ -19,6 +18,15 @@ public class Work {
     private double aDouble;
     private int anInt;
     private long aLong;
+
+    Product banana = new Product("aaa", "banana", 10);
+    Product pineapple = new Product("bbb", "pineapple", 15);
+    Product strawberry = new Product("ccc", "strawberry", 20);
+
+    Customer Bob = new Customer("111", "Bob", "1111", 1);
+    Customer Hussein = new Customer("222", "Hussein", "2222", 2);
+    Customer Eva = new Customer("333", "Eva", "3333", 3);
+
 
     public void work() {
         while (true) {
@@ -203,13 +211,12 @@ public class Work {
 //                }
 //            product.setSupplierID(entered_supplierID);
 //            all_products.add(product);
-            Product banana = new Product("aaa", "banana", 10);
-            Product pineapple = new Product("bbb", "pine apple", 15);
-            Product dildo = new Product("ccc", "dildo", 20);
+
+
             all_products.add(banana);
             all_products.add(pineapple);
-            all_products.add(dildo);
-            System.out.println("New banana, pine apple and dildo added successfully." + "\n");
+            all_products.add(strawberry);
+            System.out.println("New banana, pine apple and strawberry added successfully." + "\n");
         }
     }
 
@@ -232,15 +239,15 @@ public class Work {
     public void viewSuppliers() {
         for(int i = 0; i < all_suppliers.size(); i++){
             System.out.println("\n"+"Supplier no."+(i+1)+"\t"+"\t" + all_suppliers.get(i).getSupplierID());
-            for(int k = 0; k < all_suppliers.get(i).getProducts_carried_by_supplier().size(); k++){
-                System.out.println("\t\n"+"Product no."+(k+1)+"\t"+"\t" + all_suppliers.get(i).products_carried_by_supplier.get(k));
+            for(int k = 0; k < all_suppliers.get(i).getProductsCarriedBySupplier().size(); k++){
+                System.out.println("\t\n"+"Product no."+(k+1)+"\t"+"\t" + all_suppliers.get(i).productsCarriedBySupplier.get(k));
             }
         }
     }
 
     public ArrayList<String> searchProduct(String ID) {
         supplier = findBySupplierID(ID);
-        return supplier.getProducts_carried_by_supplier();
+        return supplier.getProductsCarriedBySupplier();
     }
 
     public long StockLevel() {
@@ -270,7 +277,7 @@ public class Work {
             switch (scanner.nextLine()) {
                 case "Y":
                     System.out.println("Enter your customerID");
-                    String CustomerID= scanner.nextLine();
+                    String CustomerID = scanner.nextLine();
 
                     if (all_customers.contains(findByCustomerID(CustomerID))) {
                         purchaseAsExistingMember(CustomerID);
@@ -298,9 +305,6 @@ public class Work {
             System.out.println("Customer already exists");
             return false;
         }
-        Customer Bob = new Customer("111", "Bob", "1111", 1);
-        Customer Hussein = new Customer("222", "Hussein", "2222", 2);
-        Customer Eva = new Customer("333", "Eva", "3333", 3);
 //        System.out.println("Enter your name: ");
 //        CustomerName = scanner.nextLine();
 //        System.out.println("Enter your Post Code: ");
@@ -308,6 +312,7 @@ public class Work {
 //        LoyaltyPoint = 0;
 //        Customer new_customer = new Customer(CustomerID, CustomerName, PostCode, LoyaltyPoint);
 //        all_customers.add(new_customer);
+
         all_customers.add(Bob);
         all_customers.add(Hussein);
         all_customers.add(Eva);
@@ -325,44 +330,49 @@ public class Work {
         }
     }
 
-    public boolean purchaseAsExistingMember(String CustomerID) {
+    public void purchaseAsExistingMember(String CustomerID) {
         System.out.println("Welcome to checkout!");
         String customerID;
-        String add_item_to_receipt;
+        String productID_to_add;
         int quantity_of_item;
-        ArrayList<String> temp_array_list_items = new ArrayList<>();
+        ArrayList<String> AL_productID_in_receipt = new ArrayList<>();
 
-            do {
-                System.out.println("Enter the product ID you want to buy, or press Q to quit: ");
-                add_item_to_receipt = scanner.nextLine();
+        do {
+            System.out.println("Enter the product ID you want to buy, or press Q to quit: ");
+            productID_to_add = scanner.nextLine();
+            if (productID_to_add.equals("Q")) {
+                break;
+            }
+            if(all_products.contains(findByProductID(productID_to_add))) {
+                AL_productID_in_receipt.add(productID_to_add);
+                System.out.println("Enter the quantity you want to buy: ");
+                quantity_of_item = Integer.parseInt(scanner.nextLine());
+                SalesLineItem sli = null;
+                if (all_saleslineitem.contains(findSLIByProductID(productID_to_add))) {
+                    sli = findSLIByProductID(productID_to_add);
+                    sli.increaseQtyBy(quantity_of_item);
+                }
+                else {
+                    sli = new SalesLineItem(productID_to_add, quantity_of_item);
+                    all_saleslineitem.add(sli);
+                }
+                int new_quantity = sli.getItemQuantity();
+                System.out.println("Buying " + productID_to_add + " at " + new_quantity + " units.");
+            } else {
+                System.out.println("Invalid ID");
+            }
+        } while (!productID_to_add.equals("Q"));
 
-                if(all_products.contains(findByProductID(add_item_to_receipt))) {
-                    temp_array_list_items.add(add_item_to_receipt);
-                    System.out.println("Enter the quantity you want to buy: ");
-                    quantity_of_item = Integer.parseInt(scanner.nextLine());
-                    SalesLineItem new_SLI = new SalesLineItem(add_item_to_receipt, quantity_of_item);
-                    if (all_saleslineitem.contains(findSLIByProductID(add_item_to_receipt))) {
-                        new_SLI.increaseByOne(quantity_of_item);
-                        int new_quantity = new_SLI.getItem_quantity();
-                        System.out.println("Buying " + add_item_to_receipt + " at " + new_quantity + " units.");
-                    }
-                    else
-                    all_saleslineitem.add(new_SLI);
-                } else {
-                    System.out.println("Invalid ID");}
-            } while (!add_item_to_receipt.equals("Q"));
+        DateTime date = new DateTime();
+        Transaction new_trans = new Transaction(CustomerID, AL_productID_in_receipt);
 
-
-        Date date = new Date();
-        Transaction new_trans = new Transaction(findByCustomerID(aString), temp_array_list_items, date);
-
-
-            System.out.println("Thank you. This is your receipt.");
-            System.out.println("Transaction ID: " + new_trans.getTransID() + "\n"
-                    + "Date of Purchase: " + new_trans.getDate_purchase()+ "\n"
-                    + "Customer ID: " + new_trans.getCustomer().getCustomerID());
-        return true;
+        System.out.println("Thank you. This is your receipt.");
+        System.out.println("Transaction ID: " + new_trans.getTransID() + "\n"
+                + "Date of Purchase: " + new_trans.getDatePurchase() + "\n"
+                + "Customer ID: " + new_trans.getCustomerID());
+        displaySLI();
     }
+
 
     public void replenish() {
         System.out.println("Enter the Product ID: ");
@@ -418,15 +428,22 @@ public class Work {
         return null;
     }
 
-
     public SalesLineItem findSLIByProductID(String id) {
-        for (int i = 0; i< all_saleslineitem.size(); i++) {
+        for (int i = 0; i < all_saleslineitem.size(); i++) {
             SalesLineItem SLI = all_saleslineitem.get(i);
             if (SLI.getProductID().equals(id)) {
                 return SLI;
             }
         }
         return null;
+    }
+
+    public void displaySLI() {
+        System.out.println("Products" + "\t\t\t" + "Quantity"+ "\t\t\t" +"Unit Price" + "\n");
+        for (SalesLineItem SLI : all_saleslineitem) {
+            System.out.println(findByProductID(SLI.getProductID()).getProductName()+ "\t\t\t" + SLI.getItemQuantity()+ "\t\t\t" + findByProductID(SLI.getProductID()).getPrice());
+            System.out.println();
+        }
     }
 
 }

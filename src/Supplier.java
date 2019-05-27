@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Supplier {
     String supplierID;
     String supplierName;
-    ArrayList<String> products_carried_by_supplier = new ArrayList<String>();
+    ArrayList<String> productsCarriedBySupplier = new ArrayList<String>();
 
     public Supplier(String supplierID, String supplierName) {
         this.supplierID = supplierID;
@@ -26,12 +26,12 @@ public class Supplier {
 
     public void setSupplierName(String SupplierName) { this.supplierName =SupplierName; }
 
-    public ArrayList<String> getProducts_carried_by_supplier() {
-        return products_carried_by_supplier;
+    public ArrayList<String> getProductsCarriedBySupplier() {
+        return productsCarriedBySupplier;
     }
 
     public void addProducts(String Product) {
-        this.products_carried_by_supplier.add(Product);
+        this.productsCarriedBySupplier.add(Product);
     }
 
     @Override

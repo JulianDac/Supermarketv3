@@ -1,46 +1,48 @@
 public class Customer {
-    private String CustomerID;
-    private String CustomerName;
-    private String PostCode;
-    private int LoyaltyPoint;
+    private String customerID;
+    private String customerName;
+    private String postCode;
+    private int loyaltyPoint;
 
     public Customer(String customerID, String customerName, String postCode, int loyaltyPoint) {
-        CustomerID = customerID;
-        CustomerName = customerName;
-        PostCode = postCode;
-        LoyaltyPoint = loyaltyPoint;
+        this.customerID = customerID;
+        this.customerName = customerName;
+        this.postCode = postCode;
+        this.loyaltyPoint = loyaltyPoint;
     }
 
+
+
     public String getCustomerID() {
-        return CustomerID;
+        return customerID;
     }
 
     public String getCustomerName() {
-        return CustomerName;
+        return customerName;
     }
 
     public String getPostCode() {
-        return PostCode;
+        return postCode;
     }
 
     public int getLoyaltyPoint() {
-        return LoyaltyPoint;
+        return loyaltyPoint;
     }
 
     public void setCustomerID(String customerID) {
-        CustomerID = customerID;
+        this.customerID = customerID;
     }
 
     public void setCustomerName(String customerName) {
-        CustomerName = customerName;
+        this.customerName = customerName;
     }
 
     public void setPostCode(String postCode) {
-        PostCode = postCode;
+        this.postCode = postCode;
     }
 
     public void setLoyaltyPoint(int loyaltyPoint) {
-        LoyaltyPoint = loyaltyPoint;
+        this.loyaltyPoint = loyaltyPoint;
     }
 
 

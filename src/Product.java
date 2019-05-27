@@ -1,102 +1,102 @@
 public class Product {
-    private String ProductID;
-    private String ProductName;
-    private double Price;
-    private long StockLevel;
-    private String SupplierID;
-    private double Revenue=0;
-    private int DiscItems;
-    private double Discount;
+    private String productID;
+    private String productName;
+    private double price;
+    private long stockLevel;
+    private String supplierID;
+    private double revenue =0;
+    private int discItems;
+    private double discount;
 
     public Product(String productID, String productName, double price) {
-        ProductID = productID;
-        ProductName = productName;
-        Price = price;
+        this.productID = productID;
+        this.productName = productName;
+        this.price = price;
     }
 
     public Product() {
     }
 
     public String getProductID() {
-        return ProductID;
+        return productID;
     }
 
     public void setProductID(String ID) {
-        this.ProductID=ID;
+        this.productID =ID;
     }
 
     public String getProductName() {
-        return ProductName;
+        return productName;
     }
 
     public void setProductName(String Name) {
-        this.ProductName=Name;
+        this.productName =Name;
     }
 
     public double getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(double Price) {
-        this.Price=Price;
+        this.price =Price;
     }
 
     public String getSupplierID() {
-        return SupplierID;
+        return supplierID;
     }
 
     public void setSupplierID(String SupplierID) {
-        this.SupplierID=SupplierID;
+        this.supplierID =SupplierID;
     }
 
     public long getStockLevel() {
-        return StockLevel;
+        return stockLevel;
     }
 
     public void setStockLevel(long StockLevel) {
-        this.StockLevel=StockLevel;
+        this.stockLevel =StockLevel;
     }
 
     public void reduceStockLevel(long StockPurchased) {
-        if (this.StockLevel-StockPurchased<0) {
+        if (this.stockLevel -StockPurchased<0) {
             System.out.println("There isn't enough Stock");
         } else {
-            this.StockLevel = this.StockLevel - StockPurchased;
+            this.stockLevel = this.stockLevel - StockPurchased;
         }
     }
 
     public void increaseStockLevel(long StockPurchased){
-        this.StockLevel=this.StockLevel+StockPurchased;
+        this.stockLevel =this.stockLevel +StockPurchased;
     }
 
     public double getRevenue() {
-        return Revenue;
+        return revenue;
     }
 
     public void setRevenue(double Revenue) {
-        this.Revenue=Revenue;
+        this.revenue =Revenue;
     }
 
     public int getDiscItems(){
-        return DiscItems;
+        return discItems;
     }
 
     public void setDiscItems(int DiscItems) {
-        this.DiscItems=DiscItems;
+        this.discItems =DiscItems;
     }
 
     public double getDiscount() {
-        return Discount;
+        return discount;
     }
 
     public void setDiscount(double Discount) {
-        this.Discount=Discount;
+        this.discount =Discount;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Product) {
-            return ProductID.equalsIgnoreCase(((Product) obj).ProductID);
+            return productID.equalsIgnoreCase(((Product) obj).productID);
         }
         return false;
     }

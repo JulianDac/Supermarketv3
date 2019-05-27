@@ -1,10 +1,10 @@
 public class SalesLineItem {
     private String productID;
-    private Integer item_quantity;
+    private Integer itemQuantity;
 
-    public SalesLineItem(String productID, Integer item_quantity) {
+    public SalesLineItem(String productID, Integer itemQuantity) {
         this.productID = productID;
-        this.item_quantity = item_quantity;
+        this.itemQuantity = itemQuantity;
     }
 
 
@@ -12,20 +12,20 @@ public class SalesLineItem {
         return productID;
     }
 
-    public Integer getItem_quantity() {
-        return item_quantity;
+    public Integer getItemQuantity() {
+        return itemQuantity;
     }
 
     public void setProductID(String productID) {
         this.productID = productID;
     }
 
-    public void setItem_quantity(Integer item_quantity) {
-        this.item_quantity = item_quantity;
+    public void setItemQuantity(Integer itemQuantity) {
+        this.itemQuantity = itemQuantity;
     }
 
-    public void increaseByOne(Integer increment) {
-        this.item_quantity += increment;
+    public void increaseQtyBy(Integer increment) {
+        this.itemQuantity += increment;
     }
 
 }
